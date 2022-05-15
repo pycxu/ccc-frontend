@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.scss';
+import Navbar from './components/navbar/Navbar';
+import Menu from './components/menu/Menu';
+import Home from './components/home/Home';
+import UnemploymentBiaxial from './components/charts/UnemploymentBiaxial';
+import IncomeBiaxial from './components/charts/IncomeBiaxial';
+import FacilityBiaxial from './components/charts/FacilityBiaxial';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <Navbar/>
+      <Menu/>
+      <div className='sections'>
+        <Home />
+        <IncomeBiaxial/>
+        <UnemploymentBiaxial />
+        <FacilityBiaxial/>
+      </div>
     </div>
   );
 }
