@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Chart, Tooltip, Legend, Point, Line, Interval } from "bizcharts";
 import { getIncomeWithSocre } from "../utils/helper";
 
@@ -8,10 +8,12 @@ const IncomeBiaxial = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+          let isMounted = true;
           await getIncomeWithSocre().then(income => {
-            setData(income);
-            setIsLoading(false);
+            isMounted && setData(income);
+            isMounted && setIsLoading(false);
           });
+          return () => { isMounted = false }
         }
         fetchData();
     },[])

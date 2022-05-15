@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Chart, Tooltip, Legend, Point, Line, Interval } from "bizcharts";
 import { getUnemploymentWithSocre } from "../utils/helper";
 
@@ -9,10 +9,12 @@ const UnemploymentBiaxial = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+          let isMounted = true;
           await getUnemploymentWithSocre().then(income => {
-            setData(income);
-            setIsLoading(false);
+            isMounted && setData(income);
+            isMounted && setIsLoading(false);
           });
+          return () => { isMounted = false }
         }
         fetchData();
     },[])

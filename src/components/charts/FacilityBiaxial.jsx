@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Chart, Tooltip, Legend, Point, Line, Interval } from "bizcharts";
 import { getFacilityWithSocre } from "../utils/helper";
 
@@ -8,10 +8,12 @@ const FacilityBiaxial = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+          let isMounted = true;
           await getFacilityWithSocre().then(facility => {
-            setData(facility);
-            setIsLoading(false);
+            isMounted && setData(facility);
+            isMounted && setIsLoading(false);
           });
+          return () => { isMounted = false }
         }
         fetchData();
     },[])

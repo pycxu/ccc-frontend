@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -17,11 +17,13 @@ const Unemployment = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      let isMounted = true;
        await getUnemployment().then(umemp => {
         console.log("umemp, ", umemp);
-        setData(umemp);
-        setIsLoading(false);
+        isMounted && setData(umemp);
+        isMounted && setIsLoading(false);
        });
+       return () => { isMounted = false }
     }
     fetchData();
   },[])

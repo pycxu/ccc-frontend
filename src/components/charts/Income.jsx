@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -17,11 +17,13 @@ const Income = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      let isMounted = true;
        await getIncome().then(income => {
         console.log("income, ", income);
-        setData(income);
-        setIsLoading(false);
+        isMounted && setData(income);
+        isMounted && setIsLoading(false);
        });
+       return () => { isMounted = false }
     }
     fetchData();
   },[])

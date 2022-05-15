@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -17,11 +17,13 @@ const Facility = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      let isMounted = true;
        await getFacility().then(facility => {
         console.log("facility, ", facility);
-        setData(facility);
-        setIsLoading(false);
+        isMounted && setData(facility);
+        isMounted && setIsLoading(false);
        });
+       return () => { isMounted = false }
     }
     fetchData();
   },[])
